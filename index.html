@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Special for My Baby</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #f9e3e3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Heading Styling */
+    h1 {
+      font-size: 32px;
+      color: #ff4d4d;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Envelope Styling */
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background-color: #ff6b6b;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    /* Envelope Flap */
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-bottom: 100px solid #ff4d4d;
+      transform-origin: top;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    /* Ribbon Styling */
+    .ribbon {
+      width: 100%;
+      height: 10px;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    /* Message Styling */
+    .message {
+      width: 90%;
+      height: 80%;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Scissor Cursor Styling */
+    .scissor-cursor {
+      font-size: 30px;
+      position: absolute;
+      pointer-events: none; /* Ensures the scissor doesn't interfere with clicks */
+      z-index: 10;
+    }
+
+    /* Animation for Cutting the Ribbon */
+    .cut .ribbon {
+      transform: translateY(-50%) scaleX(0);
+    }
+
+    .cut .message {
+      opacity: 1;
+    }
+
+    .cut .envelope::before {
+      transform: rotateX(180deg);
+    }
+  </style>
+</head>
+<body>
+  <h1>Valentine Special for My Baby ❤️❤️</h1>
+  <div class="envelope" id="envelope">
+    <div class="ribbon" id="ribbon"></div>
+    <div class="message">
+      <p>Life has become more beautiful since the day you entered my life, babudi ♥♥</p>
+    </div>
+  </div>
+  <div class="scissor-cursor" id="scissor">
+    ✂️
+  </div>
+
+  <script>
+    // JavaScript to handle the scissor cursor and ribbon cutting
+    const envelope = document.getElementById('envelope');
+    const ribbon = document.getElementById('ribbon');
+    const scissor = document.getElementById('scissor');
+
+    let isCutting = false;
+
+    // Move the scissor with the mouse
+    document.addEventListener('mousemove', (e) => {
+      scissor.style.left = `${e.pageX}px`;
+      scissor.style.top = `${e.pageY}px`;
+
+      if (isCutting) {
+        const ribbonRect = ribbon.getBoundingClientRect();
+        if (
+          e.pageX >= ribbonRect.left &&
+          e.pageX <= ribbonRect.right &&
+          e.pageY >= ribbonRect.top &&
+          e.pageY <= ribbonRect.bottom
+        ) {
+          envelope.classList.add('cut');
+        }
+      }
+    });
+
+    // Start cutting when mouse is pressed
+    document.addEventListener('mousedown', () => {
+      isCutting = true;
+    });
+
+    // Stop cutting when mouse is released
+    document.addEventListener('mouseup', () => {
+      isCutting = false;
+    });
+  </script>
+</body>
+</html>
